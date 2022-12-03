@@ -65,7 +65,8 @@ fi
 unset env
 ```
 >创建好~/.bashrc文件后重启bash就可以生效了。但是有个问题，如果你在代理中添加了多个私钥，在与github库同步时，如果选择的帐号对应的密钥不是列在前面，就会报错。解决办法就是把代理中此密钥前面的密钥删掉，然后就可以了。
-5. 看到网上还解决多个帐号问题的其他办法
+
+<details><summary><h2>看到网上还解决多个帐号问题的其他办法</h2></summary>
 >如需要创建~/.ssh/config这个配置文件，默认是没有的，文件里面的内容如下。多个帐号需要配置多个参数配置，只是对应的值不一样(没有研究明白，记在这里作为参考)。
 ```
 host webpage
@@ -79,7 +80,9 @@ host webpage1
 	IdentityFile ~/.ssh/python_key2
 
 ```
-6. 上面ssh/目录下的配置文件config参数详解[参考地址](https://www.jianshu.com/p/1e793e386beb) [参数地址](https://zhuanlan.zhihu.com/p/35922004)
+## 上面ssh/目录下的配置文件config参数详解
+
+[参考地址](https://www.jianshu.com/p/1e793e386beb) [参数地址](https://zhuanlan.zhihu.com/p/35922004)
 >此文档所有信息均来自互联网网友的博客记录，只是做了一下整理。感谢耶稣带领：）
 
 |选项参数|说明|
@@ -101,6 +104,8 @@ host webpage1
 |Port 22| 设置连接到远程主机的端口|
 |Cipher blowfish| 设置加密用的密码|
 |EscapeChar ~| 设置escape字符|
+
+</details>
 
 ## 配置全局变量(附带信息)
 >配置文件是~/.gitconfig
