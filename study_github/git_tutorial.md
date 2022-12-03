@@ -153,12 +153,27 @@
 2. 合并分支[快进分支](https://blog.csdn.net/zombres/article/details/82179122)
 ```
 	//切换到主干分支，主干分支的名字因版本有所区别
-	git checkout master/main
+	git checkout master
 	//确认切换到主干分支后，合并feature-A分支到主干master
 	git merge --no-ff feature-A
 
 	//以图形的方式查看日志
 	git log --graph
+```
+3. 删除分支[删除分支](https://www.freecodecamp.org/chinese/news/how-to-delete-a-git-branch-both-locally-and-remotely/)
+```
+	//删除本地分支，如果分支推送合并到远程分支后，就可以用这个命令删除本地分支。如果还没有推送合并，这个命令就没法删除
+	git branch -d localBranchName
+	//同上，可以强制删除没有推送合并的分支
+	git branch -D localBranchName
+
+	//删除远端分支
+	git push origin --delete remoteBranchName
+	//同上，更简略的代码，注意":"
+	git push origin :remoteBranchName
+
+	//同步远程的分支，用于远端的分支已删除，但是本地的分支还在的情况
+	git fetch -p
 ```
 
 </details>
