@@ -1,5 +1,6 @@
 # 一台电脑push多帐号到github操作步骤
-## 如果你有两个github帐号，并且都要在同一台电脑上用sshkey密钥授权来访问不同的库
+
+<details><summary><h2>如果你有两个github帐号，并且都要在同一台电脑上用sshkey密钥授权来访问不同的库</h2></summary>
 >流程大概是这样，首先需要创建两个sshkey密钥对，分别对应两个帐号，当然多个帐号也是同理操作。
 1. 首先启动git bash，并运行ssh-agent来启动sshkey代理，启动代理要输入以下命令。
 ```
@@ -66,6 +67,7 @@ unset env
 ```
 >创建好~/.bashrc文件后重启bash就可以生效了。但是有个问题，如果你在代理中添加了多个私钥，在与github库同步时，如果选择的帐号对应的密钥不是列在前面，就会报错。解决办法就是把代理中此密钥前面的密钥删掉，然后就可以了。
 
+</details>
 <details><summary><h2>看到网上还解决多个帐号问题的其他办法</h2></summary>
 >如需要创建~/.ssh/config这个配置文件，默认是没有的，文件里面的内容如下。多个帐号需要配置多个参数配置，只是对应的值不一样(没有研究明白，记在这里作为参考)。
 
@@ -100,7 +102,7 @@ host webpage1
 |UseRsh no| 设置是否在这台计算机上使用“rlogin/rsh”|
 |BatchMode no| 如果设为“yes”，passphrase/password（交互式输入口令）的提示将被禁止。当不能交互式输入口令的时候，这个选项对脚本文件和批处理任务十分有用|
 |CheckHostIP yes| 设置ssh是否查看连接到服务器的主机的IP地址以防止DNS欺骗。建议设置为“yes”|
-|StrictHostKeyChecking no| 如果设置成“yes”，ssh就不会自动把计算机的密匙加入“$HOME/.ssh/known_hosts”文件，并且一旦计算机的密匙发生了变化，就拒绝连接|
+|StrictHostKeyChecking no| 如果设置成“yes”，ssh就不会自动把计算机的密匙加入“$HOME/.ssh/known_\hosts”文件，并且一旦计算机的密匙发生了变化，就拒绝连接|
 |IdentityFile ~/.ssh/identity| 设置从哪个文件读取用户的RSA安全验证标识|
 |Port 22| 设置连接到远程主机的端口|
 |Cipher blowfish| 设置加密用的密码|
