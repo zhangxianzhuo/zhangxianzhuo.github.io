@@ -81,14 +81,14 @@ host webpage1
 	IdentityFile ~/.ssh/python_key2
 
 ```
-## 上面ssh/目录下的配置文件config参数详解
+### 上面ssh/目录下的配置文件config参数详解
 
 [参考地址](https://www.jianshu.com/p/1e793e386beb) [参数地址](https://zhuanlan.zhihu.com/p/35922004)
 >此文档所有信息均来自互联网网友的博客记录，只是做了一下整理。感谢耶稣带领：）
 
 |选项参数|说明|
 |---|---|
-|Host * |选项“Host”只对能够匹配后面字串的计算机有效。“*”表示所有的计算机。这个选项的值是个昵称，根据需要写就行。|
+|Host \* |选项“Host”只对能够匹配后面字串的计算机有效。"\*"表示所有的计算机。这个选项的值是个昵称，根据需要写就行。|
 |HostName github.com|此选项的值是个地址，也可以用ip地址|
 |ForwardAgent no| 设置连接是否经过验证代理（如果存在）转发给远程计算机。|
 |ForwardX11 no| 设置X11连接是否被自动重定向到安全的通道和显示集（DISPLAY set）|
@@ -107,8 +107,8 @@ host webpage1
 |EscapeChar ~| 设置escape字符|
 
 </details>
+<details><summary><h2>配置全局变量(附带信息)</h2></summary>
 
-## 配置全局变量(附带信息)
 >配置文件是~/.gitconfig
 ```
 	//列出所有全局变量
@@ -121,4 +121,4 @@ host webpage1
 	//编辑全局变量
 	git config --global --edit
 ```
-
+</details>
