@@ -1,0 +1,190 @@
+<details><summary>hotkey for word wrap setting:</summary>
+	{
+		"keys":["ctrl+alt+w"],"command":"toggle_setting","args":{"setting":"word_wrap"}
+	}
+</details>
+<details><summary>docker里的centos缺少命令的解决办法</summary>
+
+>需要先查看docker里的centos版本号，通过/etc/os-release，根据对应的版本下载repo文件。
+1. 从阿里晕下载centos8的repo文件，并禁用其他repo文件
+2. 安装clear命令
+```
+	yum install -y ncurses
+```
+3. 也可以直接更新并安装所有的软件
+```
+	yum update -y
+```
+</details>
+<h2>wsl与docker的安装与设置</h2>
+>WSL 是 Windows Subsystem for Linux 的缩写，意思是 linux 版的 window 子系统。
+
+>简单的说就是，Linux 的 Windows 子系统让开发人员无需虚拟机就可以直接在 Windows 上运行 Linux 环境，包括大多数命令行工具、程序和应用。
+
+1. 与在虚拟机下使用 Linux 相比，WSL 占用资源更少，更加流畅；
+1. WSL 可以对 Windows 文件系统下的文件直接进行读写，文件传输更方便；
+1. 剪贴板互通，可以直接在 Windows 下其它地方复制文本内容，粘贴到 WSL
+
+<h3>安装wsl</h3>
+
+```
+	//使用命令行安装，需要重启电脑
+	Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+```
+>或使用"启动或关闭windows功能"来开启"适用于linux的windows子系统"；同时开启"虚拟机平台"
+
+<h3>通过wsl安装linux发行版本</h3>
+
+>可以用windows store来安装debian或是fedora等，也可以用命令行来安装
+```
+	//查看可安装的发行版
+	wsl -l -o
+
+	//安装debian
+	wsl --install -d Debian
+```
+>安装好后可以查看安装了哪些wsl下的版本
+```
+	//列出已安装的linux发行版本
+	wsl -l -v
+```
+
+<h3>升级wsl1为wsl2版本</h3>
+
+>升级后系统速度更快的意思
+```
+	//需要powershell下管理员权限，安装完成后需要重启电脑
+	dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+	//将wsl 2设置为默认版本
+	wsl --set-default-version 2
+
+	//将某个发行版从wsl 1改成wsl 2
+	wsl --set-version Debian 2
+```
+
+<h3>配置wsl默认设置</h3>
+
+>[参考地址](https://blog.csdn.net/code_peak/article/details/128541617#:~:text=%E9%A6%96%E5%85%88%EF%BC%8C%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E8%BA%AB%E4%BB%BD%E6%89%93%E5%BC%80%20PowerShell%20%E6%88%96%20CMD%EF%BC%8C%E5%90%AF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8A%9F%E8%83%BD%EF%BC%88%E6%88%96%E8%80%85%E5%9C%A8%E6%8E%A7%E5%88%B6%E9%9D%A2%E6%9D%BF%20-%20%E7%A8%8B%E5%BA%8F%20-%20%E5%90%AF%E7%94%A8%E6%88%96%E5%85%B3%E9%97%ADWindows%E5%8A%9F%E8%83%BD,%2Fenable-feature%20%2Ffeaturename%3AVirtualMachinePlatform%20%2Fall%20%2Fnorestart%201%20%E5%90%AF%E7%94%A8%E5%90%8E%EF%BC%8C%E9%9C%80%E8%A6%81%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%EF%BC%8C%E4%BB%A5%E7%BB%A7%E7%BB%AD%E5%AE%8C%E6%88%90%20WSL2%20%E6%9B%B4%E6%96%B0%E3%80%82)
+1. 设置默认的linux发行版
+```
+	//假如有多个linux版本被安装，可以设置为默认启动进入此版本
+	wsl --set-default Debian
+```
+2. 设置当前目录为主目录
+```
+	//假如当前目录是d:/wsl/
+	wsl ~
+```
+3. 通过 PowerShell 或 CMD 运行特定的 Linux 发行版
+```
+	wsl --distribution Debian --user root
+```
+4. 更新wsl，可用选项 --web-download(从 GitHub 而不是 Microsoft Store 下载最新更新。)
+```
+	wsl --update
+```
+5. 检查wsl状态
+```
+	wsl --version
+```
+6. 检查wsl版本
+```
+	wsl --version
+```
+7. 更改发行版的默认用户
+```
+	Debian config --default-user root
+```
+8. 立即终止所有正在运行的发行版
+>需要重启 WSL 2 虚拟机环境的情形下，例如更改内存使用限制或更改 .wslconfig 文件，可能必须使用此命令。
+```
+	wsl --shutdown
+```
+9. 要终止指定的发行版或阻止其运行
+```
+	wsl --terminate Debian
+```
+
+<h3>win10上修改docker的镜像文件存储位置</h3>
+
+>[参考地址](https://blog.csdn.net/u013948858/article/details/111464534)
+1. 首先要关闭所有的发行版和wsl 2虚拟机
+```
+	//关闭所有的发行版
+	wsl --shutdown
+	//查看wsl下发行版运行状态,确保都是stopped
+	wsl -l -v
+```
+2. 关闭docker软件，在右下角的任务栏里退出，大概需要1分钟吧。
+```
+	//再次查看运行状态，确保docker-desktop和docker-desktop-data都是stopped就可以了。
+	wsl -l -v
+```
+3. 将docker-desktop-data的文件导出到你要放置的其他分区。这里假设是d:\docker\wsl为存放镜像的新位置。
+```
+	//导出文件名为docker-desktop-data.tar
+	wsl --export docker-desktop-data d:\docker\docker-desktop-data.tar
+```
+4. 注销掉docker-desktop-data
+```
+	wsl --unregister docker-desktop-data
+```
+5. 将导出的文件导入到要存放镜像的路径，并制定版本为wsl 2
+```
+	wsl --import docker-desktop-data d:\docker\wsl\ d:\docker\docker-desktop-data.tar --version 2
+```
+6. 操作完成后就可以启动docker了。
+```
+	//验证目录是否有效
+	docker images
+```
+
+<details><summary>docker stoped 错误修复</summary>
+
+>通常会提示[参考地址](https://github.com/docker/for-win/issues/1825)这个页面的错误
+```
+	//打开命令提示行cmd，进入docker的安装目录
+	cd "C:\Program Files\Docker\Docker"
+	./DockerCli.exe -SwitchDaemon
+```
+
+</details>
+<h3>通过linux安装docker</h3>
+
+>可以通过官网下载并安装，也可以命令行安装
+```
+	//在线安装docker
+	curl -skSL https://mirror.azure.cn/repo/install-docker-ce.sh | sh -s -- --mirror AzureChinaCloud
+
+	//启动docker并查看版本
+	sudo service docker start
+	sudo docker version
+```
+>运行镜像验证docker是否安装成功
+
+```
+	sudo docker run hello-world
+```
+<details><summary>通过linux运行docker相关命令</summary>
+
+```
+	//登录docker官网
+	docker login
+
+	//在官网搜索centos镜像
+	docker search centos
+
+	//把centos镜像拖拽到本地docker里
+	docker pull centos
+
+	//建立个名为centos_test的容器，通过交互-it的形式访问centos的bash
+	docker run --name centos_test -it centos /bin/bash
+
+	//删除镜像，通过docker images查询镜像名称
+	docker rmi hello-world
+	//如果有容器占用镜像，需要先删除容器(根据上一步提供的错误信息可以查询到容器的id)
+	docker rm container
+```
+
+</details>
