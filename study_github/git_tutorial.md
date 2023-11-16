@@ -52,6 +52,7 @@
 <summary><h2>克隆github上的库到本地</h2></summary>
 
 ```
+	//在克隆到本地前需要先将库fork到自己的库中
 	//username换成用户名，repositoryname换成库名，这条信息可以在code里查询到，并直接复制。
 	git clone git@github.com:username/repositoryname.git
 
