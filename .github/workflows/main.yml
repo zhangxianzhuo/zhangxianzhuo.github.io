@@ -1,0 +1,23 @@
+name: everydayTask
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+  # 设置循环部署的时间段
+    - cron: '*/10 * * * *'
+    - cron: '0 15 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: get-test
+        run: |
+          git pull
+          date > file.txt
+          git add file.txt
+          git commit -m "today's file"
+          git push
