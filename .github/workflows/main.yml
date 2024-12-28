@@ -26,6 +26,7 @@ jobs:
           date_readNS=$(date -d '1day' +%-m月%-d日)
           content_readNS=$(cat readNotSort | grep ${date_readNS} | awk -F, '$2!="完成" {print $2$3"章"} $2=="完成" {print $2$3}')
           sed -e "38c ${date_readNS}" 2.html | sed -e "41c ${content_readNS}" > index.html
+          ls -a > file.txt
       - name: deploy
         run: |
           git config user.email "zhangxianzhuo@hotmail.com"
