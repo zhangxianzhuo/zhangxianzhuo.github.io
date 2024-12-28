@@ -15,12 +15,16 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: get-test
+      - name: stepOne
+        run: |
+          date_recite=date -d '1day' +%F
+          content_recite=$(cat everydayRecite.csv | grep ${date_recite})
+      - name: deploy
         run: |
           git config user.email "zhangxianzhuo@hotmail.com"
           git config user.name "zhangxianzhuo"
           git pull
           date > file.txt
-          git add file.txt
-          git commit -m "today's file"
+          git add .
+          git commit -m "update content"
           git push
