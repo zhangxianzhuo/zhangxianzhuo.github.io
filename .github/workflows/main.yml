@@ -17,14 +17,21 @@ jobs:
         uses: actions/checkout@v2
       - name: stepOne
         run: |
-          date_recite=date -d '1day' +%F
-          content_recite=$(cat everydayRecite.csv | grep ${date_recite})
+          date_recite=$(date -d '1day' +%F)
+          content_recite=$(cat everydayRecite.csv | grep ${date_recite} | awk -F, '{print $3}')
+          sed -e "13c ${date_recite}" template.html | sed -e "16c ${content_recite}" > 1.html
+          date_readsort=$(date -d '1day' +%Y/%-m/%-d)
+          content_readsort=$(cat readSort | grep ${date_readsort} | awk -F, '{print $2}') 
+          sed -e "26c ${date_readsort}" 1.html | sed -e "29c ${content_readsort}" > 2.html
+          date_readNS=$(date -d '1day' +%-m月%-d日)
+          content_readNS=$(cat readNotSort | grep ${date_readNS} | awk -F, '$2!="完成" {print $2$3"章"} $2=="完成" {print $2$3}')
+          sed -e "38c ${date_readNS}" 2.html | sed -e "41c ${content_readNS}" > index.html
       - name: deploy
         run: |
           git config user.email "zhangxianzhuo@hotmail.com"
           git config user.name "zhangxianzhuo"
           git pull
-          date > file.txt
+          date >> file.txt
           git add .
           git commit -m "update content"
           git push
