@@ -2,7 +2,7 @@ name: everydayTask
 
 on:
   workflow_dispatch:
-  # push:
+  push: main
   schedule:
   # 设置循环部署的时间段
     # - cron: '*/10 * * * *'
@@ -16,8 +16,8 @@ jobs:
         uses: actions/checkout@v2
       - name: get-test
         run: |
-          git config --global user.email "zhangxianzhuo@hotmail.com"
-          git config --global user.name "zhangxianzhuo"
+          git config user.email "zhangxianzhuo@hotmail.com"
+          git config user.name "zhangxianzhuo"
           git pull
           date > file.txt
           git add file.txt
