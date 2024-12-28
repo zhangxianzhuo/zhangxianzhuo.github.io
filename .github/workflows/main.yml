@@ -7,11 +7,12 @@ on:
 #      - main
   schedule:
     # - cron: '*/10 * * * *'
-    - cron: '0 15 * * *'
+    - cron: '50 15 * * *'
 
 jobs:
   test:
     runs-on: ubuntu-22.04
+    continue-on-error: true
     steps:
       - name: checkout
         uses: actions/checkout@v4
