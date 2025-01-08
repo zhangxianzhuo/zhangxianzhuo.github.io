@@ -50,7 +50,7 @@
 		Captivate us
 	</details>
 	<audio loop controls class="song">
-		<source src="music/worship.mp3" type="audio/mpeg" />
+		<source src="ItIsWell.mp3" type="audio/mpeg" />
 	</audio>
 
 	<style>
@@ -123,13 +123,13 @@
 			const boxes = document.querySelectorAll('.container');
 			const audio = document.querySelector('.song')
 			audio.volume = 0.3
-			audio.paused = false
-			audio.play()
+			// audio.paused = false
+			// audio.play()
 
 			boxes.forEach(box => {
 				const h = box.querySelector('.header');
 				const div = box.querySelector('.content');
-				console.log(h)
+				// console.log(h)
 				h.addEventListener('click', (e) => {
 					e.preventDefault()
 					const hided = div.style.display === 'none';
@@ -145,27 +145,27 @@
 			})
 
 		})
-		function showContent(){
-			const pic = document.querySelector('.tableContainer')
-			if(pic.style.display === 'block'){
-				pic.style.display = 'none';
-			} else {
-				pic.style.display = 'block';
-			}
-		}
-		const arr = document.getElementsByClassName('tableArea')
-		arr[0].style.display = 'block'
-		arr[1].style.display = 'none'
-		const btn = document.getElementsByClassName('switch')[0]
+		// function showContent(){
+		// 	const pic = document.querySelector('.tableContainer')
+		// 	if(pic.style.display === 'block'){
+		// 		pic.style.display = 'none';
+		// 	} else {
+		// 		pic.style.display = 'block';
+		// 	}
+		// }
+		// const arr = document.getElementsByClassName('tableArea')
+		// arr[0].style.display = 'block'
+		// arr[1].style.display = 'none'
+		// const btn = document.getElementsByClassName('switch')[0]
 
-		function showTB(){
-			if (arr[0].style.display === 'block') {
-				arr[0].style.display = 'none'
-			} else {
-				arr[0].style.display = 'block'
-			}
-			arr[1].style.display = arr[0].style.display === 'block' ? 'none' : 'block'
-		}
+		// function showTB(){
+		// 	if (arr[0].style.display === 'block') {
+		// 		arr[0].style.display = 'none'
+		// 	} else {
+		// 		arr[0].style.display = 'block'
+		// 	}
+		// 	arr[1].style.display = arr[0].style.display === 'block' ? 'none' : 'block'
+		// }
 
 	</script>
 </body>
