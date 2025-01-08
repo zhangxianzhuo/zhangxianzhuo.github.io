@@ -1,9 +1,9 @@
 study_github/
 wsl_docker
-index.html
+# index.html
 index_old.html
 readSort
 readNotSort
-template.html
-*.csv
+# template.html
+# *.csv
 process_record
