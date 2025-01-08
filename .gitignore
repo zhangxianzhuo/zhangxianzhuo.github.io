@@ -4,6 +4,7 @@ wsl_docker
 index_old.html
 readSort
 readNotSort
-# template.html
-# *.csv
+template.html
+*.csv
 process_record
+*.mp3
