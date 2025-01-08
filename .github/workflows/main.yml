@@ -2,54 +2,32 @@ name: everydayTask
 
 on:
   workflow_dispatch:
-#  push:
-#    branches:
-#      - main
   schedule:
-    # - cron: '*/10 * * * *'
     - cron: '50 15 * * *'
 
 jobs:
   test:
     runs-on: ubuntu-22.04
-#    continue-on-error: true
     steps:
       - name: checkout
         uses: actions/checkout@v4
       - name: stepOne
         run: |
-          date_recite=$(date -d '1day' +%F)
-          content_recite=$(cat everydayRecite.csv | grep ${date_recite} | awk -F, '{print $3}')
-          if [ ${content_recite} ]; then
-            content_recite="可能找不到对应的日期"
+          num=$(date -d 'today' +%-j)
+          if [ $((${num} % 130)) -ne 0 ]
+          then
+            q=$(sed -n "${num}p" askAnswer.csv | awk -F~ '{print $1}' | awk -F, '{print $1": "$2}' | sed 's/\"//g')
+            a=$(sed -n "${num}p" askAnswer.csv | awk -F~ '{print $2}' | awk -F, '{print $1": "$2}' | sed 's/\"//g')
+          else
+            q="恭喜你"
+            a="完成了一遍"
           fi
-          sed -e "13c ${date_recite}" template.html | sed -e "16c ${content_recite}" > 1.html
-          echo "stepOne.recite done" > process_record
-
-          date_readsort=$(date -d '1day' +%Y/%-m/%-d)
-          content_readsort=$(cat readSort | grep ${date_readsort} | awk -F, '{print $2}') 
-          if [ ${content_readsort} ]; then
-            content_readsort="可能找不到对应的日期"
-          fi
-          sed -e "26c ${date_readsort}" 1.html | sed -e "29c ${content_readsort}" > 2.html
-          echo "stepOne.readsort done" >> process_record
-
-          date_readNS=$(date -d '1day' +%-m月%-d日)
-          content_readNS=$(cat readNotSort | grep ${date_readNS} | awk -F, '$2!="完成" {print $2$3"章"} $2=="完成" {print $2$3}')
-          if [ ${content_readNS} ]; then
-            content_readNS="可能找不到对应的日期"
-          fi
-          sed -e "38c ${date_readNS}" 2.html | sed -e "41c ${content_readNS}" > index.html
-          echo "stepOne.readNS done" >> process_record
-
-          rm -f {1..2}.html
-          echo "stepOne.finish" >> process_record
+          cat template.html | sed -e "13c ${q}" | sed -e "16c ${a}" >index.html
       - name: deploy
         run: |
           git config user.email "zhangxianzhuo@hotmail.com"
           git config user.name "zhangxianzhuo"
           git pull
-          date >> process_record
           git add .
           git commit -m "everyday update content"
           git push
