@@ -279,10 +279,11 @@
 		function getCurrentDayOfCurrentYear() {
 			// 当天的时间戳
 			const today = new Date()
+			const currentDay = today - (8 * 60 * 60 * 1000)
 			// 当年的年份字符串
 			const firstDay = new Date().getFullYear().toString()
 			// 当年已经过去了多久,得到的是毫秒单位的长度
-			const time = today - new Date(firstDay)
+			const time = currentDay - new Date(firstDay)
 			// 一天的毫秒单位的长度
 			const oneDay = 24 * 60 * 60 * 1000
 			console.log(time / oneDay)
