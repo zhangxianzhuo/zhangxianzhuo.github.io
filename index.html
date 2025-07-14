@@ -279,16 +279,25 @@
 		function getCurrentDayOfCurrentYear() {
 			// 当天的时间戳
 			const today = new Date()
-			// 设置比英国时间早(待测试中!)
-			const currentDay = today - (8 * 60 * 60 * 1000)
-			// 当年的年份字符串
-			const firstDay = new Date().getFullYear().toString()
-			// 当年已经过去了多久,得到的是毫秒单位的长度
-			const time = currentDay - new Date(firstDay)
-			// 一天的毫秒单位的长度
+			const cyear = today.getFullYear()
+			const cmonth = today.getMonth()
+			const cdate = today.getDate()
+
+			const fday = new Date(cyear, 0, 1)
 			const oneDay = 24 * 60 * 60 * 1000
-			// 得到天数
-			return parseInt(time / oneDay)
+
+			const diffTimes = today.getTime() - fday.getTime()
+			const dayOfyear = parseInt(diffTimes / oneDay)
+			return dayOfyear
+			// // 设置比英国时间早(待测试中!)
+			// const currentDay = today - (8 * 60 * 60 * 1000)
+			// // 当年的年份字符串
+			// const firstDay = new Date().getFullYear().toString()
+			// // 当年已经过去了多久,得到的是毫秒单位的长度
+			// const time = currentDay - new Date(firstDay)
+			// // 一天的毫秒单位的长度
+			// // 得到天数
+			// return parseInt(time / oneDay)
 		}
 		let index = getCurrentDayOfCurrentYear() % 129
 		setIndex(index)
