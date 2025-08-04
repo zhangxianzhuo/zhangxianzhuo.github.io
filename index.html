@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2 class="header"><i>&lt;</i><span>小要理问答</span><i>&gt;</i></h2>
+		<h2 class="header"><i></i><span>小要理问答</span><i></i></h2>
 		<div class="content">
 			<p>
 			</p>
@@ -193,17 +193,22 @@
   box-shadow: 0 -3px 3px #0A1D39;
 		}
 		.header i{
-			display: block;
 			position: absolute;
-			top: 15px;
+			display: block;
+			width: 15px;
+			height: 15px;
+			top: 25px;
 			cursor: pointer;
-			opacity: .;
+			border-top: 5px solid gold;
+      border-right: 5px solid gold
 		}
 		.header i:nth-of-type(1) {
-			left: 10px;
+			left: 20px;
+			transform: rotate(-135deg);
 		}
 		.header i:nth-of-type(2) {
-			right: 10px;
+			right: 20px;
+      transform: rotate(45deg);
 		}
 		.header.active {
 			border-bottom-left-radius: 0;
